@@ -26,8 +26,8 @@
   - [API Gateway Logs](#api-gateway-logs)
   - [Lambda Function Logs](#lambda-function-logs)
 - [How to remove the deployed resources from AWS](#how-to-remove-the-deployed-resources-from-aws)
-- [To Do](#to-do)
 - [Development progress log](#development-progress-log)
+- [To Do](#to-do)
 
 ## Problem statement
 
@@ -43,10 +43,10 @@ To address the problem statement, a backend email service called little-emailier
 
 ## Architecture
 
-Details of architecture designed is documented in [ARCHITECTURE.md](https://github.com/joechwong/little-email-poc/blob/little-emailier/server/architecture/ARCHITECTURE.md).
+Details of architecture designed is documented in [ARCHITECTURE.md](https://github.com/joechwong/little-email-poc/blob/little-emailier/architecture/ARCHITECTURE.md).
 
 Here is the high level architecture diagram of little-emailier
-[![high level architecture diagram](server/architecture/little-emailier-current-state.png 'Architecture Diagram - Current State')](https://github.com/joechwong/little-email-poc/blob/little-emailier/server/architecture/little-emailier-current-state.png)
+[![high level architecture diagram](./architecture/little-emailier-current-state.png 'Architecture Diagram - Current State')](https://github.com/joechwong/little-email-poc/blob/little-emailier/architecture/little-emailier-current-state.png)
 
 ## Deployed little-emailier for you to play with
 
@@ -388,24 +388,6 @@ cd server
 serverless remove --stage dev
 ```
 
-## To Do
-
-1. TDD using testing frameworks like Jest, Mocha, Chai.
-2. Refactor user Message array responses into Array of Message Objects, so that Provider, Status Code and Message for each of the messages can be segregated for better information handling.
-3. Add support for rich HTML content and media file attachments
-4. Add Name to all recipients, e.g. "Joe Wong <joechwong@gmail.com>"
-5. Fine tune IAM Policy for CI deployment with more fine-grained least privileges principle
-6. Secure API Gateway with API Key and control the usage via Usage Plan
-7. Create API Gateway Authorizer to authorize the API calls using a custom Lambda function or Cognito User Pool
-8. Add Elastic Application Load Balancer for scaling horizontally to distribute the incoming traffic
-9. Add database to store emails submission and status for record purpose
-10. Develop a little-emailier React frontend to accept users inputs
-11. Host the React frontend on S3
-12. Content delivery via CloudFront with SSL Certificate to serve the React frontend from S3 as the origin
-13. Add WAF to protect common web exploits like SQL injection, cross-site scripting, http flood attack
-14. Productiontise adhering to the Architecture Diagram of the Future State
-    [![architecture diagram](server/architecture/little-emailier-future-state.png 'Architecture Diagram - Future State')](https://github.com/joechwong/little-email-poc/blob/little-emailier/server/architecture/little-emailier-future-state.png)
-
 ## Development progress log
 
 1. Create [Github Repository](https://github.com/joechwong/little-emailier.git)
@@ -433,3 +415,21 @@ serverless remove --stage dev
 16. Design Future State architecture
 17. Documentations
 18. Add ToDo items
+
+## To Do
+
+1. TDD using testing frameworks like Jest, Mocha, Chai.
+2. Refactor user Message array responses into Array of Message Objects, so that Provider, Status Code and Message for each of the messages can be segregated for better information handling.
+3. Add support for rich HTML content and media file attachments
+4. Add Name to all recipients, e.g. "Joe Wong <joechwong@gmail.com>"
+5. Fine tune IAM Policy for CI deployment with more fine-grained least privileges principle
+6. Secure API Gateway with API Key and control the usage via Usage Plan
+7. Create API Gateway Authorizer to authorize the API calls using a custom Lambda function or Cognito User Pool
+8. Add Elastic Application Load Balancer for scaling horizontally to distribute the incoming traffic
+9. Add database to store emails submission and status for record purpose
+10. Develop a little-emailier React frontend to accept users inputs
+11. Host the React frontend on S3
+12. Content delivery via CloudFront with SSL Certificate to serve the React frontend from S3 as the origin
+13. Add WAF to protect common web exploits like SQL injection, cross-site scripting, http flood attack
+14. Productiontise adhering to the Architecture Diagram of the Future State
+    [![architecture diagram](./architecture/little-emailier-future-state.png 'Architecture Diagram - Future State')](https://github.com/joechwong/little-email-poc/blob/little-emailier/architecture/little-emailier-future-state.png)
