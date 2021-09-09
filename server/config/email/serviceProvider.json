@@ -1,0 +1,6 @@
+{
+  "PRIMARY_SERVICE_PROVIDER": "sendgrid",
+  "SENDGRID_API_KEY": "<<Your Sendgrid API Key>>",
+  "MAILGUN_DOMAIN_NAME": "<<Your Mailgun Domain Name>>",
+  "MAILGUN_API_KEY": "<<Your Mailgun PRIVATE API Key>>"
+}

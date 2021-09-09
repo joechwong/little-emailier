@@ -1,0 +1,44 @@
+{
+  "name": "little-emailier",
+  "version": "0.1.0",
+  "description": "Backend email service to send emails via service providers API with failover capability",
+  "main": "",
+  "scripts": {
+    "start": "npm run lint && serverless offline start",
+    "lint": "eslint src -c .eslintrc.json",
+    "build": "npm run lint && serverless package",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "serverless deploy --stage dev"
+  },
+  "license": "ISC",
+  "author": "Joe Wong",
+  "homepage": "https://github.com/joechwong/little-emailier/blob/main/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joechwong/little-emailier.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "path": "^0.12.7",
+    "serverless-http": "^2.7.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^1.18.2",
+    "serverless-offline": "^7.1.0",
+    "serverless-webpack": "^5.5.3",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-node-externals": "^3.0.0"
+  }
+}
