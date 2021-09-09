@@ -1,0 +1,65 @@
+service: little-emailier
+package:
+  individually: true
+variablesResolutionMode: 20210326
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'local'}
+  region: ap-southeast-2
+  tracing:
+    apiGateway: true
+  logs:
+    restApi:
+      accessLogging: true
+      format: '{ "requestId":"$context.requestId", "ip": "$context.identity.sourceIp", "caller":"$context.identity.caller", "user":"$context.identity.user","requestTime":"$context.requestTime", "httpMethod":"$context.httpMethod","resourcePath":"$context.resourcePath", "status":"$context.status","protocol":"$context.protocol", "responseLength":"$context.responseLength", "responseType":"$context.error.responseType", "apiGatewayError":"$context.error.message", "errorMessage":"$context.error.messageString", "validationError":"$context.error.validationErrorString", "xrayTraceId":"$context.xrayTraceId"}'
+      executionLogging: true
+      level: INFO
+      fullExecutionData: true
+  stackTags:
+    project: ${self:service}
+    environment: ${self:provider.stage}
+    ownedBy: 'Joe Wong'
+  timeout: 30
+  lambdaHashingVersion: 20201221
+  deploymentBucket:
+    name: com.serverless.${aws:accountId}.deploys
+    serverSideEncryption: AES256
+  environment:
+    SERVER: ${self:provider.stage}
+    PRIMARY_SERVICE_PROVIDER: ${file(./config/email/serviceProvider.json):PRIMARY_SERVICE_PROVIDER}
+    MAILGUN_BASE_URL: 'https://api.mailgun.net/v3/'
+    MAILGUN_DOMAIN_NAME: ${file(./config/email/serviceProvider.json):MAILGUN_DOMAIN_NAME}
+    MAILGUN_API_KEY: ${file(./config/email/serviceProvider.json):MAILGUN_API_KEY}
+    SENDGRID_BASE_URL: 'https://api.sendgrid.com/v3/mail/send'
+    SENDGRID_API_KEY: ${file(./config/email/serviceProvider.json):SENDGRID_API_KEY}
+
+custom:
+  serverless-offline:
+    noPrependStageInUrl: true
+    httpPort: 8080
+  webpack:
+    includeModules:
+      forceExclude:
+        - aws-sdk
+
+functions:
+  email:
+    handler: src/handlers/email.handler
+    description: This function processes the email requests from the users. It uses the PRIMARY service provider as setup in the environment variable and failover to the other one if the primary service goes down.
+    events:
+      - http:
+          path: /api/emails
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    ApiGatewayRestApi:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: ${self:service}-${self:provider.stage}
+
+plugins:
+  - serverless-webpack
+  - serverless-offline

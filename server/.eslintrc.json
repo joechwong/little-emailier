@@ -1,0 +1,28 @@
+{
+  "extends": ["airbnb-base", "prettier"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "consistent-return": "off",
+    "no-await-in-loop": 0,
+    "no-console": 0,
+    "no-restricted-syntax": 0,
+    "no-use-before-define": [0, { "functions": false }],
+    "import/no-cycle": [0, { "maxDepth": 1 }],
+    "import/first": "off",
+    "prefer-const": [
+      "error",
+      {
+        "destructuring": "all"
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
+}
