@@ -14,7 +14,7 @@
 
 ### High level architecture design of little-emailier
 
-[![high level architecture diagram](little-emailier-current-state.png 'Architecture Diagram - Current State')](https://github.com/joechwong/little-email-poc/blob/little-emailier/server/architecture/little-emailier-current-state.png)
+[![high level architecture diagram](little-emailier-current-state.png 'Architecture Diagram - Current State')](https://github.com/joechwong/little-email-poc/blob/little-emailier/architecture/little-emailier-current-state.png)
 
 ### Architecture Choices
 
@@ -45,7 +45,7 @@ The core serverless components of little-emailier are:
 1. API Gateway receives email request from the user
 2. `email` Lambda function is invoked by API Gateway via [Lambda Proxy Integration](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html)
 3. The `email` function handler acts as the express router to route the request to the `process email service`
-4. Based on the `PRIMARY_SERVICE_PROVIDER` configuration in `server/config/email/serviceProvider.json` - refer to [this section in the README.md](../../README.md#how-to-run-local-from-vs-code-or-your-preferred-ide), the `process email service` will delegate the request to either `send sendgrid email service` or `send mailgun email service` to deliver the email.
+4. Based on the `PRIMARY_SERVICE_PROVIDER` configuration in `server/config/email/serviceProvider.json` - refer to [this section in the README.md](https://github.com/joechwong/little-emailier/blob/little-emailier/README.md#how-to-run-local-from-vs-code-or-your-preferred-ide), the `process email service` will delegate the request to either `send sendgrid email service` or `send mailgun email service` to deliver the email.
    - A message contains the successful response will be returned to the user if the email is accepted and queued by the Primary service provider.
 5. Should there be any failure in delivering the email from the Primary service provider, the `failover service` will come into play and deliver the email via the Secondary (failover) service provider. **The idea is that regardless of which email service provider is set as the Primary provider, the `failover service` will be triggered to handle the redelivery of the original email request without affecting the customers.**
    - A list of messages containing the failure response of the Primary service provider and successful response if the failed over email is accepted and queued by the Secondary service provider will be returned to the user.
@@ -91,4 +91,4 @@ This serves the architecture and pattern to minimize and prevent data loss.
 
 To be discussed in future collaboration
 
-[![architecture diagram](little-emailier-future-state.png 'Architecture Diagram - Future State')](https://github.com/joechwong/little-email-poc/blob/little-emailier/server/architecture/little-emailier-future-state.png)
+[![architecture diagram](little-emailier-future-state.png 'Architecture Diagram - Future State')](https://github.com/joechwong/little-email-poc/blob/little-emailier/architecture/little-emailier-future-state.png)
